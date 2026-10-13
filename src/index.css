@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+  body {
+    @apply bg-ivory font-sans text-ink antialiased;
+  }
+  :focus-visible {
+    outline: 3px solid #f26b3a;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes stepIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes drawerIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes ripple {
+  from { transform: scale(0.4); opacity: 1; }
+  to { transform: scale(1.6); opacity: 0; }
+}
+
+.step-in { animation: stepIn 0.4s ease both; }
+.caption-in { animation: fadeIn 0.45s ease both; }
+.drawer-in { animation: drawerIn 0.25s ease both; }
+.spinner { animation: spin 0.8s linear infinite; }
+.press-ripple { animation: ripple 0.6s ease-out both; }
+
+/* Respect reduced motion everywhere except Presenter mode, which is a recording. */
+@media (prefers-reduced-motion: reduce) {
+  html:not(.presenter) *,
+  html:not(.presenter) *::before,
+  html:not(.presenter) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html:not(.presenter) .scan-line { display: none; }
+}
